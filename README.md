@@ -1,2 +1,2 @@
 # starter-app
-Android app for a research using app-sdk of S-HealthStack
+Use this starter code to create a Samsung Health Stack mobile app for Android devices. Install the app-sdk prior to implementing this code. Refer to https://samsunghealthstack.io/tutorial.html for details.
