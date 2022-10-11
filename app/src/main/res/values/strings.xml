@@ -55,4 +55,6 @@
         consequat, risus eget commodo suscipit, lorem ex condimentum orci, et sollicitudin nisi eros sed lectus. Sed at
         erat nisl. Nunc venenatis mi tellus, vitae congue erat dictum a.
     </string>
+    <string name="research_platform_endpoint">_PLATFORM_ENDPOINT_</string>
+    <string name="research_project_id">_PROJECT_ID_</string>
 </resources>
