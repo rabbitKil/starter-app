@@ -1,3 +1,8 @@
+repositories {
+    google()
+    mavenCentral()
+}
+
 buildscript {
     repositories {
         google()
@@ -7,7 +12,7 @@ buildscript {
     dependencies {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
-        classpath("com.android.tools.build:gradle:7.3.0")
+        classpath("com.android.tools.build:gradle:${Versions.ANDROID_BUILD}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}")
         classpath("de.mannodermaus.gradle.plugins:android-junit5:${Versions.JUnit.PLUGIN}")
         classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.Hilt.DAGGER}")
@@ -20,6 +25,7 @@ buildscript {
 plugins {
     id("org.jlleitschuh.gradle.ktlint") version Versions.KTLINT apply false
     kotlin("kapt") version Versions.KOTLIN apply false
+    id("nl.neotech.plugin.rootcoverage") version "1.5.3"
 }
 
 subprojects {
@@ -45,4 +51,8 @@ val testWithLint by tasks.registering {
         getTasksByName("test", true),
         getTasksByName("ktlintCheck", true)
     )
+}
+
+jacoco {
+    toolVersion = Versions.JACOCO
 }

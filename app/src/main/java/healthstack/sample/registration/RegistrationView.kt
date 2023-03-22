@@ -1,4 +1,4 @@
-package com.samsung.healthstack.starter_app.registration
+package healthstack.sample.registration
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,14 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import com.samsung.healthcare.kit.common.CallbackCollection
-import com.samsung.healthstack.starter_app.registration.RegistrationState.Failed
-import com.samsung.healthstack.starter_app.registration.RegistrationState.Init
-import com.samsung.healthstack.starter_app.registration.RegistrationState.Loading
-import com.samsung.healthstack.starter_app.registration.RegistrationState.Success
-import com.samsung.healthcare.kit.step.sub.SubStepHolder
-import com.samsung.healthcare.kit.theme.AppTheme
-import com.samsung.healthcare.kit.view.View
+import healthstack.kit.task.base.CallbackCollection
+import healthstack.kit.task.base.View
+import healthstack.kit.task.survey.question.SubStepHolder
+import healthstack.kit.theme.AppTheme
+import healthstack.sample.registration.RegistrationState.Failed
+import healthstack.sample.registration.RegistrationState.Init
+import healthstack.sample.registration.RegistrationState.Loading
+import healthstack.sample.registration.RegistrationState.Success
 
 class RegistrationView(
     private val viewModel: RegistrationViewModel = RegistrationViewModel(),

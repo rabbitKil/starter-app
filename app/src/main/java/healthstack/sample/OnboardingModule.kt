@@ -1,43 +1,42 @@
-package com.samsung.healthstack.starter_app
+package healthstack.sample
 
 import android.content.Context
-import com.samsung.healthcare.kit.auth.SignInProvider.Basic
-import com.samsung.healthcare.kit.auth.SignInProvider.Google
-import com.samsung.healthcare.kit.external.datastore.MetaDataStore
-import com.samsung.healthcare.kit.model.ConsentTextModel
-import com.samsung.healthcare.kit.model.EligibilityCheckerModel
-import com.samsung.healthcare.kit.model.EligibilityIntroModel
-import com.samsung.healthcare.kit.model.EligibilityIntroModel.EligibilityCondition
-import com.samsung.healthcare.kit.model.EligibilityResultModel
-import com.samsung.healthcare.kit.model.ImageArticleModel
-import com.samsung.healthcare.kit.model.IntroModel
-import com.samsung.healthcare.kit.model.IntroModel.IntroSection
-import com.samsung.healthcare.kit.model.RegistrationCompletedModel
-import com.samsung.healthcare.kit.model.SignUpModel
-import com.samsung.healthcare.kit.model.question.ChoiceQuestionModel
-import com.samsung.healthcare.kit.model.question.ChoiceQuestionModel.ViewType.DropMenu
-import com.samsung.healthcare.kit.model.question.QuestionModel
-import com.samsung.healthcare.kit.sample.R
-import com.samsung.healthstack.starter_app.registration.RegistrationModel
-import com.samsung.healthstack.starter_app.registration.RegistrationStep
-import com.samsung.healthcare.kit.step.ConsentTextStep
-import com.samsung.healthcare.kit.step.EligibilityCheckerStep
-import com.samsung.healthcare.kit.step.EligibilityIntroStep
-import com.samsung.healthcare.kit.step.EligibilityResultStep
-import com.samsung.healthcare.kit.step.IntroStep
-import com.samsung.healthcare.kit.task.OnboardingTask
-import com.samsung.healthcare.kit.task.SignUpTask
-import com.samsung.healthcare.kit.theme.AppColors
-import com.samsung.healthcare.kit.theme.blueColors
-import com.samsung.healthcare.kit.view.ConsentTextView
-import com.samsung.healthcare.kit.view.EligibilityIntroView
-import com.samsung.healthcare.kit.view.EligibilityResultView
-import com.samsung.healthcare.kit.view.IntroView
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import healthstack.kit.auth.SignInProvider.Google
+import healthstack.kit.task.base.ImageArticleModel
+import healthstack.kit.task.onboarding.OnboardingTask
+import healthstack.kit.task.onboarding.model.ConsentTextModel
+import healthstack.kit.task.onboarding.model.EligibilityCheckerModel
+import healthstack.kit.task.onboarding.model.EligibilityIntroModel
+import healthstack.kit.task.onboarding.model.EligibilityIntroModel.EligibilityCondition
+import healthstack.kit.task.onboarding.model.EligibilityIntroModel.ViewType.Card
+import healthstack.kit.task.onboarding.model.EligibilityResultModel
+import healthstack.kit.task.onboarding.model.IntroModel
+import healthstack.kit.task.onboarding.model.IntroModel.IntroSection
+import healthstack.kit.task.onboarding.step.ConsentTextStep
+import healthstack.kit.task.onboarding.step.EligibilityCheckerStep
+import healthstack.kit.task.onboarding.step.EligibilityIntroStep
+import healthstack.kit.task.onboarding.step.EligibilityResultStep
+import healthstack.kit.task.onboarding.step.IntroStep
+import healthstack.kit.task.onboarding.view.ConsentTextView
+import healthstack.kit.task.onboarding.view.EligibilityIntroView
+import healthstack.kit.task.onboarding.view.EligibilityResultView
+import healthstack.kit.task.onboarding.view.IntroView
+import healthstack.kit.task.signup.SignUpTask
+import healthstack.kit.task.signup.model.RegistrationCompletedModel
+import healthstack.kit.task.signup.model.SignUpModel
+import healthstack.kit.task.survey.question.model.ChoiceQuestionModel
+import healthstack.kit.task.survey.question.model.ChoiceQuestionModel.ViewType.DropMenu
+import healthstack.kit.task.survey.question.model.QuestionModel
+import healthstack.kit.theme.AppColors
+import healthstack.kit.theme.mainLightColors
+import healthstack.sample.R.drawable
+import healthstack.sample.registration.RegistrationModel
+import healthstack.sample.registration.RegistrationStep
 import javax.inject.Singleton
 
 @Module
@@ -46,7 +45,7 @@ object OnboardingModule {
 
     @Singleton
     @Provides
-    fun providesAppColors(): AppColors = blueColors()
+    fun providesAppColors(): AppColors = mainLightColors()
 
     @Singleton
     @Provides
@@ -132,27 +131,24 @@ object OnboardingModule {
             ConsentTextView()
         )
 
-    @Singleton
-    @Provides
-    fun providePreferencesStore(@ApplicationContext context: Context): MetaDataStore =
-        MetaDataStore(context)
-
     private fun intro(@ApplicationContext context: Context) = IntroModel(
         id = "intro",
         title = "CardioFlow",
-        drawableId = R.drawable.sample_image_alpha4,
-        logoDrawableId = R.drawable.ic_launcher,
+        drawableId = drawable.sample_image_alpha4,
+        logoDrawableId = drawable.ic_launcher,
         summaries = listOf(
-            R.drawable.ic_watch to "Wear your\nwatch",
-            R.drawable.ic_alert to "10 min\na day",
-            R.drawable.ic_home_task to "2 surveys\na week"
+            drawable.ic_watch to "Wear your\nwatch",
+            drawable.ic_alert to "10 min\na day",
+            drawable.ic_home_task to "2 surveys\na week"
         ),
         sections = listOf(
             IntroSection(
                 "Overview",
                 "CardioFlow is a study developed by the University of California, San Francisco.\n\n" +
-                    "Through this study, we identify and measure the data of your vital signs and symptom reports.\n\n" +
-                    "With your help, we could test our algorithms and develop technology that contributes to preventing cardiovascular diseases in the U.S.",
+                    "Through this study, we identify and " +
+                    "measure the data of your vital signs and symptom reports.\n\n" +
+                    "With your help, we could test our algorithms and " +
+                    "develop technology that contributes to preventing cardiovascular diseases in the U.S.",
             ),
             IntroSection(
                 "How to participate",
@@ -164,9 +160,10 @@ object OnboardingModule {
     private fun eligibilityIntro(@ApplicationContext context: Context) = EligibilityIntroModel(
         id = "eligibility",
         title = "Eligibility",
-        description = "To begin with, we will ask a few questions to make sure that you are eligible to join this study.",
+        description = "To begin with, we will ask a few questions " +
+            "to make sure that you are eligible to join this study.",
         conditions = eligibilitySections,
-        viewType = EligibilityIntroModel.ViewType.Card
+        viewType = Card
     )
 
     private fun eligibilityChecker(@ApplicationContext context: Context) = EligibilityCheckerModel(
@@ -198,9 +195,11 @@ object OnboardingModule {
     private fun signUp() = SignUpModel(
         id = "sign-up-model",
         title = "CardioFlow",
-        listOf(Basic, Google),
-        description = "Thanks for joining the study!\nNow please create an account to keep track\nof your data and keep it safe.",
-        drawableId = R.drawable.ic_launcher
+        listOf(Google),
+        description = "Thanks for joining the study!\n" +
+            "Now please create an account to keep track\n" +
+            "of your data and keep it safe.",
+        drawableId = drawable.ic_launcher
     )
 
     private fun registrationCompleted() =
@@ -208,8 +207,9 @@ object OnboardingModule {
             id = "registration-completed-model",
             title = "You are done!",
             buttonText = "Continue",
-            description = "Congratulations! Everything is all set for you. Now please tap on the button below to start your CardioFlow journey!",
-            drawableId = R.drawable.sample_image_alpha1
+            description = "Congratulations! Everything is all set for you. " +
+                "Now please tap on the button below to start your CardioFlow journey!",
+            drawableId = drawable.sample_image_alpha1
         )
 
     private val eligibilitySections: List<EligibilityIntroModel.EligibilityCondition> = listOf(
@@ -226,15 +226,16 @@ object OnboardingModule {
     private val eligibilitySuccessMessage: ImageArticleModel = ImageArticleModel(
         id = "eligibility",
         title = "Great, You’re in!",
-        description = "Congratulations! You are eligible for the study. Next, we will need to collect your consent, and you will be ready to go.",
-        drawableId = R.drawable.sample_image_alpha1
+        description = "Congratulations! You are eligible for the study. " +
+            "Next, we will need to collect your consent, and you will be ready to go.",
+        drawableId = drawable.sample_image_alpha1
     )
 
     private val eligibilityFailMessage: ImageArticleModel = ImageArticleModel(
         id = "eligibility",
         title = "You’re not eligible for the study.",
         description = "Please check back later and stay tuned for more studies coming soon!",
-        drawableId = R.drawable.sample_image_alpha1
+        drawableId = drawable.sample_image_alpha1
     )
 
     private val eligibilityQuestions: List<QuestionModel<Any>> = listOf(

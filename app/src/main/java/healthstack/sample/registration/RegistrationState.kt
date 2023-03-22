@@ -1,4 +1,4 @@
-package com.samsung.healthstack.starter_app.registration
+package healthstack.sample.registration
 
 sealed class RegistrationState {
     object Init : RegistrationState()

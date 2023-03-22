@@ -1,21 +1,22 @@
-package com.samsung.healthstack.starter_app.registration
+package healthstack.sample.registration
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.samsung.healthcare.kit.external.data.User
-import com.samsung.healthcare.kit.external.network.ResearchPlatformAdapter
-import com.samsung.healthstack.starter_app.registration.RegistrationState.Failed
-import com.samsung.healthstack.starter_app.registration.RegistrationState.Loading
-import com.samsung.healthstack.starter_app.registration.RegistrationState.Success
+import healthstack.backend.integration.BackendFacadeHolder
+import healthstack.backend.integration.exception.UserAlreadyExistsException
+import healthstack.sample.registration.RegistrationState.Failed
+import healthstack.sample.registration.RegistrationState.Init
+import healthstack.sample.registration.RegistrationState.Loading
+import healthstack.sample.registration.RegistrationState.Success
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val _state = MutableStateFlow<RegistrationState>(RegistrationState.Init)
+    private val _state = MutableStateFlow<RegistrationState>(Init)
 
     val state: StateFlow<RegistrationState> = _state
 
@@ -26,8 +27,14 @@ class RegistrationViewModel : ViewModel() {
                 result.token?.let { idToken ->
                     viewModelScope.launch {
                         try {
-                            ResearchPlatformAdapter.getInstance()
-                                .registerUser(idToken, User(auth.uid!!, profile))
+                            BackendFacadeHolder.getInstance()
+                                .registerUser(
+                                    idToken,
+                                    healthstack.backend.integration.registration.User(auth.uid!!, profile)
+                                )
+                            _state.value = Success
+                            // TODO handle specific exception
+                        } catch (e: UserAlreadyExistsException) {
                             _state.value = Success
                         } catch (e: Exception) {
                             Log.d(RegistrationViewModel::class.simpleName, "fail to register user")

@@ -7,10 +7,10 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.samsung.healthcare.kit.sample"
+        applicationId = "healthstack.sample"
         minSdk = 29
         targetSdk = 31
     }
@@ -45,7 +45,6 @@ android {
             merges += "/META-INF/NOTICE.md"
         }
     }
-    namespace = "com.samsung.healthcare.kit.sample"
 
     kapt {
         correctErrorTypes = true
@@ -53,13 +52,20 @@ android {
 }
 
 dependencies {
+    implementation("io.s-healthstack:kit:0.9")
+    implementation("io.s-healthstack:app-support:0.9")
+    implementation("io.s-healthstack:healthdata-link:0.9")
+    implementation("io.s-healthstack:healthconnect:0.9")
+    implementation("io.s-healthstack:backend-integration:0.9")
+    implementation("io.s-healthstack:healthstack-adapter:0.9")
+
     implementation(platform(AppDependencies.FIREBASE_BOM))
+    implementation(AppDependencies.GOOGLE_HEALTH_CONNECT)
+    implementation(AppDependencies.GOOGLE_HEALTH_DATA)
     implementation(AppDependencies.authImplLibs)
     implementation(AppDependencies.composeImplLibs)
     implementation(AppDependencies.hiltImplLibs)
     implementation(AppDependencies.healthDataImplLibs)
-    implementation(files("shs-libs/app-sdk-external-alpha.aar"))
-    implementation(files("shs-libs/app-sdk-kit-alpha.aar"))
 
     kapt(AppDependencies.hiltKaptLibs)
 }

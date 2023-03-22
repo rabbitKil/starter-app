@@ -1,9 +1,9 @@
-package com.samsung.healthstack.starter_app.registration
+package healthstack.sample.registration
 
 import androidx.compose.runtime.Composable
-import com.samsung.healthcare.kit.common.CallbackCollection
-import com.samsung.healthcare.kit.step.Step
-import com.samsung.healthcare.kit.view.View
+import healthstack.kit.task.base.CallbackCollection
+import healthstack.kit.task.base.Step
+import healthstack.kit.task.base.View
 
 class RegistrationStep(
     model: RegistrationModel,
