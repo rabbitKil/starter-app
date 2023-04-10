@@ -52,12 +52,12 @@ android {
 }
 
 dependencies {
-    implementation("io.s-healthstack:kit:0.9")
-    implementation("io.s-healthstack:app-support:0.9")
-    implementation("io.s-healthstack:healthdata-link:0.9")
-    implementation("io.s-healthstack:healthconnect:0.9")
-    implementation("io.s-healthstack:backend-integration:0.9")
-    implementation("io.s-healthstack:healthstack-adapter:0.9")
+    implementation("io.s-healthstack:kit:0.9c")
+    implementation("io.s-healthstack:app-support:0.9c")
+    implementation("io.s-healthstack:healthdata-link:0.9c")
+    implementation("io.s-healthstack:healthconnect:0.9c")
+    implementation("io.s-healthstack:backend-integration:0.9c")
+    implementation("io.s-healthstack:healthstack-adapter:0.9c")
 
     implementation(platform(AppDependencies.FIREBASE_BOM))
     implementation(AppDependencies.GOOGLE_HEALTH_CONNECT)
@@ -66,6 +66,7 @@ dependencies {
     implementation(AppDependencies.composeImplLibs)
     implementation(AppDependencies.hiltImplLibs)
     implementation(AppDependencies.healthDataImplLibs)
+    implementation(AppDependencies.CORE_SPLASHSCREEN)
 
     kapt(AppDependencies.hiltKaptLibs)
 }
