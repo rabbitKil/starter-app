@@ -52,12 +52,24 @@ android {
 }
 
 dependencies {
-    implementation("io.s-healthstack:kit:1.0")
-    implementation("io.s-healthstack:app-support:1.0")
-    implementation("io.s-healthstack:healthdata-link:1.0")
-    implementation("io.s-healthstack:healthconnect:1.0")
-    implementation("io.s-healthstack:backend-integration:1.0")
-    implementation("io.s-healthstack:healthstack-adapter:1.0")
+    val buildAppsWithSDKProject: String? by project
+
+    if (buildAppsWithSDKProject.toBoolean()) {
+        implementation(project(":kit"))
+        implementation(project(":app-support"))
+        implementation(project(":healthdata-link:interface"))
+        implementation(project(":healthdata-link:healthconnect"))
+        implementation(project(":backend-integration:interface"))
+        implementation(project(":backend-integration:healthstack-adapter"))
+        implementation(project(":resources:korean"))
+    } else {
+        implementation("io.s-healthstack:kit:${Versions.HEALTH_STACK}")
+        implementation("io.s-healthstack:app-support:${Versions.HEALTH_STACK}")
+        implementation("io.s-healthstack:healthdata-link:${Versions.HEALTH_STACK}")
+        implementation("io.s-healthstack:healthconnect:${Versions.HEALTH_STACK}")
+        implementation("io.s-healthstack:backend-integration:${Versions.HEALTH_STACK}")
+        implementation("io.s-healthstack:healthstack-adapter:${Versions.HEALTH_STACK}")
+    }
 
     implementation(platform(AppDependencies.FIREBASE_BOM))
     implementation(AppDependencies.GOOGLE_HEALTH_CONNECT)
