@@ -1,2 +1,2 @@
-rootProject.name = "SHealthStackApp"
+rootProject.name = "HealthStackStarterApp"
 include(":app")
