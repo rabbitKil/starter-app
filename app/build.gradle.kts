@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "healthstack.sample"
         minSdk = 29
-        targetSdk = 31
+        targetSdk = 34
     }
 
     buildTypes {
@@ -73,7 +73,6 @@ dependencies {
 
     implementation(platform(AppDependencies.FIREBASE_BOM))
     implementation(AppDependencies.GOOGLE_HEALTH_CONNECT)
-    implementation(AppDependencies.GOOGLE_HEALTH_DATA)
     implementation(AppDependencies.authImplLibs)
     implementation(AppDependencies.composeImplLibs)
     implementation(AppDependencies.hiltImplLibs)
@@ -81,4 +80,13 @@ dependencies {
     implementation(AppDependencies.CORE_SPLASHSCREEN)
 
     kapt(AppDependencies.hiltKaptLibs)
+
+    modules {
+        module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {
+            replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk7 is now part of kotlin-stdlib")
+        }
+        module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") {
+            replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk8 is now part of kotlin-stdlib")
+        }
+    }
 }
